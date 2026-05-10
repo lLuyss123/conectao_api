@@ -93,7 +93,7 @@ function throttle(func, limit = 2000) {
     if (inThrottle) {
       func.apply(this, arguments);
       inThrottle = false;
-      setTimeout(() => (inThrottle = false), limit);
+      setTimeout(() => (inThrottle = true), limit);
     }
   };
 }
