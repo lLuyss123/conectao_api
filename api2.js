@@ -98,7 +98,7 @@ function gender(result) {
   }
   const set = new Set(generos);
   const generoshtml = document.getElementById("opciones");
-  generoshtml.innerHTML = `<option value="none" id="none"></option>`;
+  generoshtml.innerHTML = `<option value="none" id="none">All</option>`;
   let i = 1;
   for (const element of set) {
     generoshtml.innerHTML += `<option value="${element}" id="option${i}"> ${element}</option>`;
