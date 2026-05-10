@@ -88,11 +88,11 @@ function getAttributeCustom() {
 }
 
 function throttle(func, limit = 2000) {
-  let inThrottle;
+  let inThrottle=true;
   return function () {
-    if (!inThrottle) {
+    if (inThrottle) {
       func.apply(this, arguments);
-      inThrottle = true;
+      inThrottle = false;
       setTimeout(() => (inThrottle = false), limit);
     }
   };
