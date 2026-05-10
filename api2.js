@@ -11,20 +11,19 @@ async function requestData(url_api) {
   renderHtml(data);
   setAttributeCustom(data.info);
   gender(data.results);
-console.log(data);
+  console.log(data);
 
   pagehtml.innerText = `Estás en la página: ${page_number}`;
   data2 = data;
-  if (page_number==1) {
-    btnLoadPrev.disabled=true;
-    btnLoadNext.disabled=false;
-    
-  }else if (page_number==data.info.pages) {
-    btnLoadPrev.disabled=false;
-    btnLoadNext.disabled=true;
-  }else{
-    btnLoadPrev.disabled=false;
-    btnLoadNext.disabled=false;
+  if (page_number == 1) {
+    btnLoadPrev.disabled = true;
+    btnLoadNext.disabled = false;
+  } else if (page_number == data.info.pages) {
+    btnLoadPrev.disabled = false;
+    btnLoadNext.disabled = true;
+  } else {
+    btnLoadPrev.disabled = false;
+    btnLoadNext.disabled = false;
   }
 }
 
@@ -43,24 +42,19 @@ function renderHtml(data, genero = null) {
   let lista = document.getElementById("character");
   lista.innerHTML = "";
   for (let index = 0; index < data.results.length; index++) {
+    const result = data.results[index];
+    let name = result.name;
+    let image = data.results[index].image;
+    let gender = data.results[index].gender;
+    let specie = data.results[index].species;
     if (genero == null) {
-      const result = data.results[index];
-      let name = result.name;
-      let image = data.results[index].image;
-      let gender = data.results[index].gender;
-      let specie = data.results[index].species;
       lista.innerHTML += `<li>
-
             <img src="${image}">
             <h2>${name}</h2>
             <h3>${specie}</h3>
             <spam> ${specie == "Human" ? "🌍" : "🪐"} </spam
             </li>`;
     } else if (data.results[index].gender == genero) {
-      const result = data.results[index];
-      let name = result.name;
-      let image = data.results[index].image;
-      let gender = data.results[index].gender;
       lista.innerHTML += `<li>
             <img src="${image}">
             <h2>${name}</h2>
@@ -88,7 +82,7 @@ function getAttributeCustom() {
 }
 
 function throttle(func, limit = 2000) {
-  let inThrottle=true;
+  let inThrottle = true;
   return function () {
     if (inThrottle) {
       func.apply(this, arguments);
