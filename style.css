@@ -17,18 +17,21 @@ header {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
+  padding-bottom:clamp(2rem, 5vw, 5rem);
 }
 header h2 {
   color: rgb(118, 223, 255);
+}
+main{
+  width: 100%;
 }
 ul {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  grid-template-columns: repeat(4, 1fr);
-  justify-content: center;
+  justify-content: flex-start;
   gap: 3rem;
-  padding: 20px;
+  padding: 40px;
 }
 li {
   display: flex;
