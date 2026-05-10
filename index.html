@@ -1,21 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Document</title>
-</head>
+  </head>
 
-<body style="background-color: grey;">
+  <body>
+    <header>
+      <img
+        src="https://media.cdn.adultswim.com/uploads/20210428/21428161947-rick-and-morty-logo-png.png"
+        alt=""
+      />
+      <h2 id="paginacion"></h2>
+      <select id="opciones" name="opciones">
+         <optgroup label="Género"> 
+         </optgroup>
+      </select>
+    </header>
     <main>
-        <ul id="character">
-
-        </ul>
-        <button id="loadPrevId" data-prev="" onclick="loadPrev()">Anterior</button>
-        <button id="loadNextId" data-next="" onclick="loadNext()">Seguiente</button>
+      <ul id="character"></ul>
+      <button id="loadPrevId" data-prev="" onclick="loadPrev()">
+        Anterior
+      </button>
+      <button id="loadNextId" data-next="" onclick="loadNext()">
+        Seguiente
+      </button>
     </main>
     <script src="api2.js"></script>
-</body>
-
+  </body>
 </html>

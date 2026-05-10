@@ -1,61 +1,105 @@
-const url_api = "https://rickandmortyapi.com/api/character"
+const url_api = "https://rickandmortyapi.com/api/character";
+let page_number = 1;
+const pagehtml = document.getElementById("paginacion");
 
 async function requestData(url_api) {
-    const response = await fetch(url_api);
-    let data = await response.json();
-    console.log(data);
-    renderHtml(data);
+  const response = await fetch(url_api);
+  let data = await response.json();
 
-    setAttributeCustom(data.info);
+  renderHtml(data);
+  setAttributeCustom(data.info);
+  gender(data.results);
+
+  pagehtml.innerText = `Estás en la página: ${page_number}`;
+    console.log("HJOLAAAA ESTAS ENTRANDOOOOOOOOOOOOO");
+    
+  const selecionar = document.getElementById("opciones");
+  selecionar.addEventListener("click", () => {
+    if (selecionar.value == "none") {
+      renderHtml(data);
+    } else {
+      renderHtml(data, selecionar.value);
+    }
+  });
 }
 
-const response = requestData(url_api)
+const response = requestData(url_api);
 
-function renderHtml(data) {
-    let lista = document.getElementById("character")
-    lista.innerHTML = ""
-    for (let index = 0; index < data.results.length; index++) {
-        const result = data.results[index]
-        let name = result.name
-        let image = data.results[index].image
-        let gender = data.results[index].gender
-        lista.innerHTML += `<li>
+function renderHtml(data, genero = null) {
+  let lista = document.getElementById("character");
+  lista.innerHTML = "";
+  for (let index = 0; index < data.results.length; index++) {
+    if (genero == null) {
+      const result = data.results[index];
+      let name = result.name;
+      let image = data.results[index].image;
+      let gender = data.results[index].gender;
+      lista.innerHTML += `<li>
 
             <img src="${image}">
             <h2>${name}</h2>
             <h3>${gender}</h3>
 
-            </li>`
-    }
-}
+            </li>`;
+    } else if (data.results[index].gender == genero) {
+      const result = data.results[index];
+      let name = result.name;
+      let image = data.results[index].image;
+      let gender = data.results[index].gender;
+      lista.innerHTML += `<li>
 
+            <img src="${image}">
+            <h2>${name}</h2>
+            <h3>${gender}</h3>
+
+            </li>`;
+    }
+  }
+}
 
 function setAttributeCustom(info) {
-    const buttonNext = document.getElementById("loadNextId");
-    const buttonPrev = document.getElementById("loadPrevId");
-    buttonNext.setAttribute("data-next", (info.next != null) ? info.next : "")
-    buttonPrev.setAttribute("data-prev", (info.prev != null) ? info.prev : "")
+  const buttonNext = document.getElementById("loadNextId");
+  const buttonPrev = document.getElementById("loadPrevId");
+  buttonNext.setAttribute("data-next", info.next != null ? info.next : "");
+  buttonPrev.setAttribute("data-prev", info.prev != null ? info.prev : "");
 }
 
-/* function getAttributeCustom() {
-    const buttonNext = document.getElementById("loadNextId");
-    const buttonPrev = document.getElementById("loadPrevId");
-    const next = buttonNext.getAttribute("data-next")
-    const prev = buttonPrev.getAttribute("data-prev")
-    const returnInfo = { next, prev }
-    return returnInfo
+function getAttributeCustom() {
+  const buttonNext = document.getElementById("loadNextId");
+  const buttonPrev = document.getElementById("loadPrevId");
+  const next = buttonNext.getAttribute("data-next");
+  const prev = buttonPrev.getAttribute("data-prev");
+  const returnInfo = { next, prev };
+  return returnInfo;
 }
 
 function loadNext() {
-    const infoNextPrev = getAttributeCustom();
-    if (infoNextPrev.next != "") {
-        requestData(infoNextPrev.next);
-    }
+  const infoNextPrev = getAttributeCustom();
+  if (infoNextPrev.next != "") {
+    requestData(infoNextPrev.next);
+    page_number += 1;
+  }
 }
 
 function loadPrev() {
-    const infoNextPrev = getAttributeCustom();
-    if (infoNextPrev.prev != "") {
-        requestData(infoNextPrev.prev);
-    }
-} */
+  const infoNextPrev = getAttributeCustom();
+  if (infoNextPrev.prev != "") {
+    requestData(infoNextPrev.prev);
+    page_number -= 1;
+  }
+}
+
+function gender(result) {
+  const generos = [];
+  for (const element of result) {
+    generos.push(element.gender);
+  }
+  const set = new Set(generos);
+  const generoshtml = document.getElementById("opciones");
+  generoshtml.innerHTML = `<option value="none" id="none"></option>`;
+  let i = 1;
+  for (const element of set) {
+    generoshtml.innerHTML += `<option value="${element}" id="option${i}"> ${element}</option>`;
+    i = i + 1;
+  }
+}

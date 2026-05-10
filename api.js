@@ -22,11 +22,13 @@ function renderHtml(data) {
         let name = data.results[index].name
         let image = data.results[index].image
         let gender = data.results[index].gender
-        lista.innerHTML += `<li>
+        lista.innerHTML += `
+            <li>
             <img src="${image}">
             <h2>${name}</h2>
             <h3>${gender}</h3>
-            </li>`
+            </li>
+            `
     }
 }
 
