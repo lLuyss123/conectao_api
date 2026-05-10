@@ -14,19 +14,23 @@
         alt=""
       />
       <h2 id="paginacion"></h2>
-      <select id="opciones" name="opciones">
-         <optgroup label="Género"> 
-         </optgroup>
-      </select>
-    </header>
-    <main>
-      <ul id="character"></ul>
-      <button id="loadPrevId" data-prev="" onclick="loadPrev()">
+      <search>
+        <h2>Gender</h2>
+        <select id="opciones" name="opciones"></select>
+      </search>
+
+       <button id="loadPrevId" data-prev="" onclick="loadPrev()">
         Anterior
       </button>
       <button id="loadNextId" data-next="" onclick="loadNext()">
         Seguiente
       </button>
+
+      
+    </header>
+    <main>
+      <ul id="character"></ul>
+     
     </main>
     <script src="api2.js"></script>
   </body>

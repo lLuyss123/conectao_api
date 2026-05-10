@@ -12,6 +12,8 @@ async function requestData(url_api) {
 
   pagehtml.innerText = `Estás en la página: ${page_number}`;
   data2 = data;
+  console.log(data2);
+  
 }
 
 
@@ -36,12 +38,13 @@ function renderHtml(data, genero = null) {
       let name = result.name;
       let image = data.results[index].image;
       let gender = data.results[index].gender;
+      let specie= data.results[index].species;
       lista.innerHTML += `<li>
 
             <img src="${image}">
             <h2>${name}</h2>
-            <h3>${gender}</h3>
-
+            <h3>${specie}</h3>
+            <spam> ${(specie=="Human")? "🌍":"🪐"} </spam
             </li>`;
     } else if (data.results[index].gender == genero) {
       const result = data.results[index];
