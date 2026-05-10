@@ -80,6 +80,9 @@ button {
   cursor: pointer;
   color: white;
 }
+button:disabled{
+    display: none;
+}
 button:hover {
     
   background: center;
@@ -102,3 +105,5 @@ select {
   padding: 8px;
   padding-left: 20px;
 }
+
+

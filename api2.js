@@ -2,6 +2,8 @@ const url_api = "https://rickandmortyapi.com/api/character";
 let page_number = 1;
 const pagehtml = document.getElementById("paginacion");
 let data2;
+const btnLoadNext = document.getElementById("loadNextId");
+const btnLoadPrev = document.getElementById("loadPrevId");
 async function requestData(url_api) {
   const response = await fetch(url_api);
   let data = await response.json();
@@ -9,10 +11,21 @@ async function requestData(url_api) {
   renderHtml(data);
   setAttributeCustom(data.info);
   gender(data.results);
+console.log(data);
 
   pagehtml.innerText = `Estás en la página: ${page_number}`;
   data2 = data;
-  console.log(data2);
+  if (page_number==1) {
+    btnLoadPrev.disabled=true;
+    btnLoadNext.disabled=false;
+    
+  }else if (page_number==data.info.pages) {
+    btnLoadPrev.disabled=false;
+    btnLoadNext.disabled=true;
+  }else{
+    btnLoadPrev.disabled=false;
+    btnLoadNext.disabled=false;
+  }
 }
 
 const response = requestData(url_api);
@@ -74,21 +87,32 @@ function getAttributeCustom() {
   return returnInfo;
 }
 
-function loadNext() {
+function throttle(func, limit = 2000) {
+  let inThrottle;
+  return function () {
+    if (!inThrottle) {
+      func.apply(this, arguments);
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), limit);
+    }
+  };
+}
+
+const loadNext = throttle(() => {
   const infoNextPrev = getAttributeCustom();
   if (infoNextPrev.next != "") {
     requestData(infoNextPrev.next);
     page_number += 1;
   }
-}
+}, 2000);
 
-function loadPrev() {
+const loadPrev = throttle(() => {
   const infoNextPrev = getAttributeCustom();
   if (infoNextPrev.prev != "") {
     requestData(infoNextPrev.prev);
     page_number -= 1;
   }
-}
+}, 2000);
 
 function gender(result) {
   const generos = [];
