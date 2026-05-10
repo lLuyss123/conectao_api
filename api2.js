@@ -1,7 +1,7 @@
 const url_api = "https://rickandmortyapi.com/api/character";
 let page_number = 1;
 const pagehtml = document.getElementById("paginacion");
-
+let data2;
 async function requestData(url_api) {
   const response = await fetch(url_api);
   let data = await response.json();
@@ -11,19 +11,21 @@ async function requestData(url_api) {
   gender(data.results);
 
   pagehtml.innerText = `Estás en la página: ${page_number}`;
-    console.log("HJOLAAAA ESTAS ENTRANDOOOOOOOOOOOOO");
-    
-  const selecionar = document.getElementById("opciones");
-  selecionar.addEventListener("click", () => {
-    if (selecionar.value == "none") {
-      renderHtml(data);
-    } else {
-      renderHtml(data, selecionar.value);
-    }
-  });
+  data2 = data;
 }
 
+
 const response = requestData(url_api);
+
+
+const selecionar = document.getElementById("opciones");
+selecionar.addEventListener("click", () => {
+  if (selecionar.value == "none") {
+    renderHtml(data2);
+  } else {
+    renderHtml(data2, selecionar.value);
+  }
+});
 
 function renderHtml(data, genero = null) {
   let lista = document.getElementById("character");
